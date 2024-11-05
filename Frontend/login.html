@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f3f6fb;
+      }
+
+      #form {
+        border: 3px solid #4caf50;
+        padding: 20px;
+        border-radius: 12px;
+        background-color: #f0f8ff;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        transition: transform 0.2s;
+      }
+
+      #form:hover {
+        transform: scale(1.02);
+      }
+
+      #header {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 24px;
+      }
+
+      #scr {
+        color: #333;
+        font-size: 16px;
+        text-align: left;
+        margin-left: 5%;
+        margin-top: 15px;
+      }
+
+      #form > input[type="email"],
+      #form > input[type="password"] {
+        width: 90%;
+        padding: 12px;
+        font-size: 16px;
+        margin-top: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background-color: #ffffff;
+      }
+
+      #form > input[type="submit"] {
+        width: 90%;
+        padding: 12px;
+        font-size: 18px;
+        margin-top: 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      #form > input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+
+      #form h6 {
+        margin-top: 15px;
+        color: #777;
+        font-size: 14px;
+      }
+      /* Tablets in portrait mode */
+      @media (max-width: 768px) {
+        #header {
+          font-size: 22px;
+        }
+        #scr {
+          font-size: 14px;
+        }
+        #form > input[type="email"],
+        #form > input[type="password"],
+        #form > input[type="submit"] {
+          font-size: 16px;
+        }
+      }
+      /* Mobile devices */
+      @media (max-width: 480px) {
+        #form {
+          padding: 15px;
+          width: 95%;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
+        }
+        #header {
+          font-size: 20px;
+        }
+        #scr {
+          font-size: 12px;
+          margin-left: 5%;
+        }
+        #form > input[type="email"],
+        #form > input[type="password"] {
+          font-size: 14px;
+          padding: 10px;
+        }
+        #form > input[type="submit"] {
+          font-size: 16px;
+          padding: 10px;
+        }
+        #form h6 {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <form id="form">
+      <h1 id="header">Login and Get Your Products</h1>
+      <h3 id="scr">Please Enter Your Email Here</h3>
+      <input type="email" id="email" placeholder="Enter your email here" />
+      <h3 id="scr">Enter Your Password Here</h3>
+      <input type="password" id="pass" placeholder="Enter your password here" />
+      <input type="submit" value="Login" />
+      <h6>Thank You</h6>
+    </form>
+    <script>
+      let form = document.getElementById("form");
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        let obj = {
+          email: form.email.value,
+          pass: form.pass.value,
+        };
+        console.log(obj);
+        let getmail = JSON.parse(localStorage.getItem("signup"));
+        //let getpass = JSON.parse(localStorage.getItem("signup"))
+        let bool = false;
+        for (i = 0; i < getmail.length; i++) {
+          if (getmail[i].email == obj.email && getmail[i].pass == obj.pass) {
+            bool = true;
+            alert("Login success");
+            window.location.href = "index.html";
+            break;
+          }
+        }
+        if (!bool) {
+          alert("Please check Credentials");
+        }
+      });
+    </script>
+  </body>
+</html>

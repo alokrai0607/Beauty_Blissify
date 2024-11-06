@@ -16,8 +16,8 @@
 
       /* Navbar Styling */
       .navbar {
-        background-color: #4a90e2;
-        color: #fff;
+        background-color: #72d75c;
+        color: #0d0101;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -38,7 +38,7 @@
 
       .navbar a,
       .navbar button {
-        color: #fff;
+        color: #0d0101;
         text-decoration: none;
         padding: 8px 16px;
         border-radius: 4px;
@@ -61,7 +61,7 @@
       }
 
       .form-section {
-        background-color: #fff;
+        background-color: #c87575;
         padding: 20px;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -104,7 +104,7 @@
       }
 
       .product-item {
-        background-color: #ffffff;
+        background-color: #847f7f;
         border: 1px solid #ddd;
         border-radius: 8px;
         padding: 15px;
@@ -166,12 +166,9 @@
     <div class="navbar">
       <h1>Admin Dashboard</h1>
       <div class="actions">
-        <!-- <button onclick="navigateTo('home')">Home</button> -->
+        <button onclick="navigateTo('home')">Home</button>
         <button onclick="navigateTo('products')">Products</button>
         <button onclick="navigateTo('cart')">Cart</button>
-      </div>
-      <div class="nav-links">
-        <!-- <a href="#product-form">Add Product</a> -->
       </div>
     </div>
 
@@ -228,7 +225,7 @@
 
       function navigateTo(page) {
         if (page === "home") {
-          window.location.href = "/home"; // Update the URL as needed
+          window.location.href = "./index.html";
         } else if (page === "products") {
           window.location.href = "/products";
         } else if (page === "cart") {

@@ -21,7 +21,9 @@ def get_product(db: Session, id: int):
     return db.query(models.Product).filter(models.Product.id == id).first()
 
 def update_product(db: Session, id: int, product: schemas.ProductUpdate):
+
     db_product = get_product(db, id)
+    
     if db_product:
         if product.img is not None:
             db_product.img = product.img

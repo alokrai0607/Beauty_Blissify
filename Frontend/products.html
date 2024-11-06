@@ -4,9 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
+    <title>Product Page</title>
     <style>
-      /* Write all necessery css here */
       #product-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -145,7 +144,7 @@
         let res = await fetch(url);
         let out = await res.json();
         arr = [...out];
-        console.log(arr);
+        // console.log(arr);
         display(arr);
       } catch (err) {
         alert(err);
@@ -159,7 +158,7 @@
       let show = arr.filter(function (element) {
         return element.category == alok;
       });
-      console.log(show);
+      // console.log(show);
       display(show);
     }
     function display(arr) {
@@ -189,6 +188,7 @@
         btn.addEventListener("click", function () {
           carts.push(element);
           localStorage.setItem("cart", JSON.stringify(carts));
+          alert("Product added in cart");
         });
         div.append(img, title, cat, discription, price, btn);
         document.querySelector("#product-container").append(div);

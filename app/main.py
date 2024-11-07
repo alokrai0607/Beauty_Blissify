@@ -3,9 +3,7 @@ from . import models, database
 from .routers import router as product_router
 from fastapi.middleware.cors import CORSMiddleware
 
-
 app = FastAPI()
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -19,7 +17,7 @@ models.Base.metadata.create_all(bind=database.engine)
 
 app.include_router(product_router, prefix="/api/v1")
 
-
 # .\venv\Scripts\Activate
-
 # .\venv\Scripts\uvicorn.exe app.main:app --reload
+#  pytest
+

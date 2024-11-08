@@ -1,2 +1,6 @@
 [project]
 language = "python"
+
+[build]
+static_directory = "Frontend"
+

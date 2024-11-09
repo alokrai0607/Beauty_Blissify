@@ -17,6 +17,6 @@
     }
   ],
   "env": {
-    "DATABASE_URL": "@ecomdb-database-url"
+    "DATABASE_URL": "mysql+mysqlconnector://root:0303@localhost:3306/Ecomdb"
   }
 }

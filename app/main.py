@@ -4,6 +4,9 @@ from .routers import router as product_router
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from dotenv import load_dotenv
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -25,4 +28,12 @@ app.add_middleware(
 
 models.Base.metadata.create_all(bind=database.engine)
 app.include_router(product_router, prefix="/api/v1")
+
+load_dotenv()
+
+Port = int(os.get('PORT',8000))
+Host = '0.0.0.0'
+
+if __name__ == '__main__':
+    uvicorn.run('app.main:app' , host = Host ,port = Port ,reload = True)
 

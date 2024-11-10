@@ -26,9 +26,3 @@ app.add_middleware(
 models.Base.metadata.create_all(bind=database.engine)
 app.include_router(product_router, prefix="/api/v1")
 
-# .\venv\Scripts\Activate
-
-# .\venv\Scripts\uvicorn.exe app.main:app --reload
-
-#  pytest
-

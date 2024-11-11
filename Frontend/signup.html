@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <style>
+      body {
+        background-color: #f0f4f8;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      #form {
+        max-width: 500px;
+        width: 80%;
+        margin: 5% auto;
+        padding: 30px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+        background-color: #ffffff;
+        transition: transform 0.2s;
+      }
+
+      #form:hover {
+        transform: scale(1.02);
+      }
+
+      #header {
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      .label {
+        color: #555;
+        font-size: 14px;
+        text-align: left;
+        margin: 20px 0 5px 10px;
+      }
+
+      #form > input[type="email"],
+      #form > input[type="number"],
+      #form > input[type="password"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 16px;
+        border: 1px solid #16f106;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        background-color: #e8ece9;
+      }
+
+      #form > input[type="email"]:focus,
+      #form > input[type="number"]:focus,
+      #form > input[type="password"]:focus {
+        border-color: #13f343;
+        outline: none;
+        box-shadow: 0px 0px 8px rgba(91, 155, 213, 0.5);
+      }
+
+      #form > input[type="submit"] {
+        width: 100%;
+        padding: 15px;
+        font-size: 18px;
+        color: #ffffff;
+        background-color: #5b9bd5;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        margin-top: 20px;
+      }
+
+      #form > input[type="submit"]:hover {
+        background-color: #4a8bb0;
+        transform: scale(1.02);
+      }
+      /* Larger screens */
+      @media (min-width: 1600px) {
+        #form {
+          max-width: 600px;
+          padding: 40px;
+        }
+      }
+
+      /* Desktops and laptops */
+      @media (min-width: 1200px) and (max-width: 1599px) {
+        #form {
+          max-width: 500px;
+          padding: 35px;
+        }
+      }
+
+      /* Tablets in landscape and smaller desktops */
+      @media (min-width: 768px) and (max-width: 1199px) {
+        #form {
+          max-width: 600px;
+          padding: 30px;
+        }
+
+        #form > input[type="email"],
+        #form > input[type="number"],
+        #form > input[type="password"],
+        #form > input[type="submit"] {
+          font-size: 18px;
+        }
+
+        #header {
+          font-size: 22px;
+        }
+      }
+
+      /* Tablets in portrait mode */
+      @media (min-width: 480px) and (max-width: 767px) {
+        #form {
+          max-width: 90%;
+          padding: 20px;
+        }
+
+        #form > input[type="email"],
+        #form > input[type="number"],
+        #form > input[type="password"],
+        #form > input[type="submit"] {
+          font-size: 16px;
+        }
+
+        #header {
+          font-size: 20px;
+        }
+      }
+
+      /* Mobile devices */
+      @media (max-width: 479px) {
+        #form {
+          width: 95%;
+          padding: 15px;
+          margin-top: 20px;
+        }
+
+        #form > input[type="email"],
+        #form > input[type="number"],
+        #form > input[type="password"],
+        #form > input[type="submit"] {
+          font-size: 14px;
+          padding: 12px;
+        }
+
+        #header {
+          font-size: 18px;
+        }
+
+        .label {
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <h1 id="header">Please Register Yourself</h1>
+
+      <label class="label" for="email">Enter Your Email</label>
+      <input type="email" id="email" placeholder="Enter your email here" />
+
+      <label class="label" for="mobil">Enter Your Contact Details</label>
+      <input type="number" id="mobil" placeholder="Enter your contact number" />
+
+      <label class="label" for="pass">Enter Your Password</label>
+      <input type="password" id="pass" placeholder="Enter your password" />
+
+      <input type="submit" value="Register" />
+    </form>
+    <script>
+      let form = document.querySelector("#form");
+      let LSData = JSON.parse(localStorage.getItem("signup")) || [];
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        let obj = {
+          email: form.email.value,
+          mobil: form.mobil.value,
+          pass: form.pass.value,
+        };
+        if (obj.email == "" || obj.mobil == "" || obj.pass == "") {
+          alert("Please Fill The Details");
+        } else {
+          LSData.push(obj);
+          localStorage.setItem("signup", JSON.stringify(LSData));
+          window.location.href = "login.html";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fa;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Navbar Styling */
+      .navbar {
+        background-color: #72d75c;
+        color: #0d0101;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .navbar h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      .navbar .nav-links,
+      .navbar .actions {
+        display: flex;
+        gap: 15px;
+      }
+
+      .navbar a,
+      .navbar button {
+        color: #0d0101;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 16px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar a:hover,
+      .navbar button:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 0 20px;
+      }
+
+      .form-section {
+        background-color: #c87575;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-bottom: 20px;
+      }
+
+      .form-section form {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .form-section input[type="text"],
+      .form-section input[type="number"],
+      .form-section button {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        flex: 1 1 calc(25% - 20px);
+      }
+
+      .form-section button {
+        background-color: #4a90e2;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .form-section button:hover {
+        background-color: #357ab8;
+      }
+
+      #product-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+      }
+
+      .product-item {
+        background-color: #847f7f;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+        margin-bottom: 10px;
+      }
+
+      .product-item p {
+        margin: 5px 0;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .product-item button {
+        padding: 8px;
+        font-size: 14px;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        flex: 1;
+      }
+
+      .product-item button.edit {
+        background-color: #f0ad4e;
+      }
+
+      .product-item button.edit:hover {
+        background-color: #ec971f;
+      }
+
+      .product-item button.delete {
+        background-color: #d9534f;
+      }
+
+      .product-item button.delete:hover {
+        background-color: #c9302c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <h1>Admin Dashboard</h1>
+      <div class="actions">
+        <button onclick="navigateTo('home')">Home</button>
+        <button onclick="navigateTo('products')">Products</button>
+        <button onclick="navigateTo('cart')">Cart</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="form-section">
+        <h2 id="form-title">Add Product</h2>
+        <form id="product-form">
+          <input type="hidden" id="product_id" />
+          <input
+            type="text"
+            id="product_image"
+            placeholder="Product Image URL"
+            required
+          />
+          <input
+            type="text"
+            id="product_name"
+            placeholder="Product Name"
+            required
+          />
+          <input
+            type="text"
+            id="product_category"
+            placeholder="Product Category"
+            required
+          />
+          <input
+            type="text"
+            id="product_description"
+            placeholder="Product Description"
+            required
+          />
+          <input
+            type="number"
+            step="0.01"
+            id="product_price"
+            placeholder="Product Price"
+            required
+          />
+          <button type="submit">Add Product</button>
+        </form>
+      </div>
+
+      <div id="product-list">
+        <!-- Product list will render here -->
+      </div>
+    </div>
+
+    <script>
+      const apiUrl = "http://127.0.0.1:8000/api/v1/products/";
+      const formTitle = document.getElementById("form-title");
+      const form = document.getElementById("product-form");
+      const productIdField = document.getElementById("product_id");
+
+      function navigateTo(page) {
+        if (page === "home") {
+          window.location.href = "./index.html";
+        } else if (page === "products") {
+          window.location.href = "/products";
+        } else if (page === "cart") {
+          window.location.href = "/cart";
+        }
+      }
+
+      async function fetchProducts() {
+        try {
+          const response = await fetch(apiUrl);
+          const products = await response.json();
+          renderProducts(products);
+        } catch (error) {
+          console.error("Error fetching products:", error);
+        }
+      }
+
+      function renderProducts(products) {
+        const productList = document.getElementById("product-list");
+        productList.innerHTML = "";
+
+        products.forEach((product) => {
+          const productDiv = document.createElement("div");
+          productDiv.className = "product-item";
+          productDiv.innerHTML = `
+                    <img src="${product.img}" alt="${product.title}">
+                    <p><strong>Name:</strong> ${product.title}</p>
+                    <p><strong>Category:</strong> ${product.category}</p>
+                    <p><strong>Description:</strong> ${product.description}</p>
+                    <p><strong>Price:</strong> ₹${product.price}</p>
+                    <div class="button-group">
+                        <button class="edit" onclick="startEditProduct(${product.id})">Edit</button>
+                        <button class="delete" onclick="deleteProduct(${product.id})">Delete</button>
+                    </div>
+                `;
+          productList.appendChild(productDiv);
+        });
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const product = {
+          img: document.getElementById("product_image").value,
+          title: document.getElementById("product_name").value,
+          category: document.getElementById("product_category").value,
+          description: document.getElementById("product_description").value,
+          price: parseFloat(document.getElementById("product_price").value),
+        };
+
+        if (productIdField.value) {
+          await updateProduct(productIdField.value, product);
+        } else {
+          await addProduct(product);
+        }
+        form.reset();
+        productIdField.value = "";
+        formTitle.innerText = "Add Product";
+        fetchProducts();
+      });
+
+      async function addProduct(product) {
+        try {
+          await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(product),
+          });
+        } catch (error) {
+          console.error("Error adding product:", error);
+        }
+      }
+
+      async function startEditProduct(id) {
+        try {
+          const response = await fetch(`${apiUrl}${id}`);
+          const product = await response.json();
+          document.getElementById("product_image").value = product.img;
+          document.getElementById("product_name").value = product.title;
+          document.getElementById("product_category").value = product.category;
+          document.getElementById("product_description").value =
+            product.description;
+          document.getElementById("product_price").value = product.price;
+          productIdField.value = id;
+          formTitle.innerText = "Edit Product";
+        } catch (error) {
+          console.error("Error fetching product:", error);
+        }
+      }
+
+      async function updateProduct(id, product) {
+        try {
+          await fetch(`${apiUrl}${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(product),
+          });
+        } catch (error) {
+          console.error("Error updating product:", error);
+        }
+      }
+
+      async function deleteProduct(id) {
+        try {
+          await fetch(`${apiUrl}${id}`, { method: "DELETE" });
+          fetchProducts();
+        } catch (error) {
+          console.error("Error deleting product:", error);
+        }
+      }
+
+      fetchProducts();
+    </script>
+  </body>
+</html>

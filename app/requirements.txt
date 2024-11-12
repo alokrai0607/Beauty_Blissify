@@ -4,4 +4,3 @@ sqlalchemy
 mysql-connector-python
 pydantic
 python-dotenv
-

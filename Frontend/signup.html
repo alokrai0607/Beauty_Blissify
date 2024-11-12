@@ -179,8 +179,14 @@
       <input type="submit" value="Register" />
     </form>
     <script>
+      let isUserRegistered = localStorage.getItem("signup") !== null;
+      if (isUserRegistered) {
+        window.location.href = "login.html";
+      }
+
       let form = document.querySelector("#form");
       let LSData = JSON.parse(localStorage.getItem("signup")) || [];
+
       form.addEventListener("submit", function (event) {
         event.preventDefault();
         let obj = {
@@ -188,11 +194,13 @@
           mobil: form.mobil.value,
           pass: form.pass.value,
         };
+
         if (obj.email == "" || obj.mobil == "" || obj.pass == "") {
-          alert("Please Fill The Details");
+          alert("Please fill all the details.");
         } else {
           LSData.push(obj);
           localStorage.setItem("signup", JSON.stringify(LSData));
+          alert("Signup successful! Redirecting to login page.");
           window.location.href = "login.html";
         }
       });

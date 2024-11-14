@@ -1,24 +1,20 @@
-# Use the official Python image as a base
+# Use an official Python runtime as a parent image
 FROM python:3.11-slim
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy the requirements file
+# Copy the requirements file into the container
 COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies, including gunicorn
+RUN pip install --no-cache-dir -r requirements.txt && pip install gunicorn
 
-# Copy the rest of the app code
+# Copy the current directory contents into the container at /app
 COPY . .
 
-# Set environment variables
-ENV PORT=8000
-ENV HOST=0.0.0.0
+# Expose port 8000 for the FastAPI app
+EXPOSE 8000
 
-# Expose the port FastAPI will run on
-EXPOSE $PORT
-
-# Run the application with Gunicorn and Uvicorn worker class
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "--bind", "0.0.0.0:8000"]
+# Start the FastAPI application using Gunicorn
+CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "app.main:app"]

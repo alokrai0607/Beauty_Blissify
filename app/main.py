@@ -28,11 +28,11 @@ app.include_router(product_router, prefix="/api/v1")
 
 #  pytest
 
- # Rebuild the Docker Image
- # docker build --no-cache -t fastapi-app .
+# Rebuild the Docker Image
+# docker build --no-cache -t fastapi-app .
 
-#  run the container normally:
-#  docker run -d -p 8000:8000 fastapi-app
+# run the container normally:
+# docker run -d -p 8000:8000 fastapi-app
 
 # for stop container 
 # docker stop 32c741b4270e
